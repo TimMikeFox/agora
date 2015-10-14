@@ -5,10 +5,7 @@ apply from: 'gradle/integration.gradle'
 
 mainClassName = 'Driver'
 
-if(hasProperty('PIPELINE_VERSION'))
-    version = PIPELINE_VERSION
-else
-    version = '0.0'
+version = '0.0.' + System.getProperty('DPIPELINE_VERSION', "0");
 
 repositories {
     mavenCentral()
