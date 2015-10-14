@@ -1,5 +1,14 @@
 apply plugin: 'java'
+apply plugin: 'application'
+
 apply from: 'gradle/integration.gradle'
+
+mainClassName = 'Driver'
+
+if(hasProperty('PIPELINE_VERSION'))
+    version = PIPELINE_VERSION
+else
+    version = '0.0'
 
 repositories {
     mavenCentral()
