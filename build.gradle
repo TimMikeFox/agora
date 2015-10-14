@@ -4,7 +4,7 @@ apply plugin: 'application'
 apply from: 'gradle/integration.gradle'
 
 mainClassName = 'Driver'
-
+applicationName = 'agora'
 version = '0.0.' + System.getProperty('PIPELINE_VERSION', '0');
 
 repositories {
