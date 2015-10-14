@@ -1,0 +1,37 @@
+sourceSets {
+    integrationTest {
+        java.srcDir 'src/integrationTest/java'
+        resources.srcDir 'src/integrationTest/resources'
+    }
+}
+
+dependencies {
+    integrationTestCompile sourceSets.main.output
+    integrationTestCompile sourceSets.test.output
+    integrationTestCompile configurations.compile
+    integrationTestCompile configurations.testCompile
+    integrationTestRuntime configurations.runtime
+    integrationTestRuntime configurations.testRuntime
+}
+
+task integrationTests(type: Test) {
+    description = "Runs integration tests."
+
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+
+    // ensure we don't overwrite default report directories used by 'test' task
+    reports.html.destination = "${project.buildDir}/reports/integrationTest"
+    reports.junitXml.destination = "${project.buildDir}/integrationTest-results"
+    binResultsDir = file("${project.buildDir}/integrationTest-results/binary/integrationTest")
+
+    // always run integration tests after unit tests in order to fail fast
+    shouldRunAfter test
+}
+
+// Add integration test source directories to IDEA .iml files
+if (project.plugins.hasPlugin('idea')) {
+    idea.module {
+        testSourceDirs += (sourceSets.integrationTest.java.srcDirs + sourceSets.integrationTest.resources.srcDirs)
+    }
+}
