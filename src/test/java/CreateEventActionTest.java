@@ -17,15 +17,25 @@ public class CreateEventActionTest {
         newAction.create();
     }
 
+    @Test (expected = IllegalStateException.class)
+    public void needsToSetTheEventNameBeforeCreateIsCalled() {
+        EventRepositorySpy spy = new EventRepositorySpy();
+        CreateEventAction newAction = new CreateEventAction(spy);
+        newAction.host(new User());
+        newAction.create();
+    }
+
     @Test
     public void willCallIntoRepository() {
         EventRepositorySpy spy = new EventRepositorySpy();
         CreateEventAction newAction = new CreateEventAction(spy);
         User host = new User();
         newAction.host(host);
+        newAction.name("The Event");
         Event createdEvent = newAction.create();
         assertTrue(spy.wasNewEventCalled);
         assertEquals(host, spy.newEventInput.host());
+        assertEquals("The Event", spy.newEventInput.name());
         assertEquals(spy.newEventInput, createdEvent);
     }
 
