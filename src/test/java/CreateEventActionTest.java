@@ -23,9 +23,10 @@ public class CreateEventActionTest {
         CreateEventAction newAction = new CreateEventAction(spy);
         User host = new User();
         newAction.host(host);
-        newAction.create();
+        Event createdEvent = newAction.create();
         assertTrue(spy.wasNewEventCalled);
         assertEquals(host, spy.newEventInput.host());
+        assertEquals(spy.newEventInput, createdEvent);
     }
 
 }

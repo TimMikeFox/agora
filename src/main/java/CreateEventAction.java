@@ -14,11 +14,12 @@ public class CreateEventAction {
         host = theUser;
     }
 
-    public void create() {
+    public Event create() {
         if(host == null)
             throw new IllegalStateException("The host needs to be set before creating the Event");
         Event event = new Event();
         event.setHost(host);
         repository.newEvent(event);
+        return event;
     }
 }
