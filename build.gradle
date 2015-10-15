@@ -20,10 +20,16 @@ dependencies {
 
 apply plugin:'maven'
 
+install {
+    repositories.mavenInstaller {
+        pom.version = version
+        pom.artifactId = applicationName
+    }
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
-            artifactId = 'agora'
             repository(url: "file:///tmp/repo")
         }
     }
