@@ -26,7 +26,7 @@ public class NoFlagDriverTest {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream, true, "UTF-8"));
         Driver.main();
-        assertEquals(String.format("Event 'THE EVENT' create for the host 'HOSTNAME'%n"), outputStream.toString());
+        assertEquals(String.format("Event 'THE EVENT' create for the host 'HOSTNAME'%n"), outputStream.toString("UTF-8"));
     }
 
 }
