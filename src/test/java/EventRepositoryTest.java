@@ -1,9 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -32,6 +30,21 @@ public class EventRepositoryTest {
         assertTrue(mockStore.containsKey(host));
         assertEquals(1, mockStore.get(host).size());
         assertTrue(mockStore.get(host).contains(event));
+    }
+
+    @Test
+    public void testEventsHostedBy() {
+        Map<User, List<Event>> mockStore = new HashMap<>();
+        User theHost = new User();
+        Event[] events = {new Event(), new Event(), new Event(), new Event(), new Event(), new Event()};
+        for(Event e : events)
+            e.setHost(theHost);
+        mockStore.put(theHost, Arrays.asList(events));
+        EventRepository repo = new EventRepository(mockStore);
+        List<Event> theHostsEvents = repo.eventsHostedBy(theHost);
+        assertEquals(events.length, theHostsEvents.size());
+        for(Event e : events)
+            assertTrue(theHostsEvents.contains(e));
     }
 
 }
