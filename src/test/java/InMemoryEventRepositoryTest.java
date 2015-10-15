@@ -1,28 +1,27 @@
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
 
-public class EventRepositoryTest {
+public class InMemoryEventRepositoryTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void mustProvideAStoreImpl() {
-        new EventRepository(null);
+        new InMemoryEventRepository(null);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void willNotStoreEventsForNullHosts() {
         Map<User, List<Event>> mockStore = new HashMap<>();
-        EventRepository repo = new EventRepository(mockStore);
+        EventRepository repo = new InMemoryEventRepository(mockStore);
         repo.newEvent(new Event());
     }
 
     @Test
     public void testNewEvent() {
         Map<User, List<Event>> mockStore = new HashMap<>();
-        EventRepository repo = new EventRepository(mockStore);
+        EventRepository repo = new InMemoryEventRepository(mockStore);
         User host = new User();
         Event event = new Event();
         event.setHost(host);
@@ -40,7 +39,7 @@ public class EventRepositoryTest {
         for(Event e : events)
             e.setHost(theHost);
         mockStore.put(theHost, Arrays.asList(events));
-        EventRepository repo = new EventRepository(mockStore);
+        EventRepository repo = new InMemoryEventRepository(mockStore);
         List<Event> theHostsEvents = repo.eventsHostedBy(theHost);
         assertEquals(events.length, theHostsEvents.size());
         for(Event e : events)
