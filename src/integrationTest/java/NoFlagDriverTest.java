@@ -22,9 +22,9 @@ public class NoFlagDriverTest {
     }
 
     @Test
-    public void testOutput() {
+    public void testOutput() throws Exception {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
+        System.setOut(new PrintStream(outputStream, true, "UTF-8"));
         Driver.main();
         assertEquals(String.format("Event 'THE EVENT' create for the host 'HOSTNAME'%n"), outputStream.toString());
     }
