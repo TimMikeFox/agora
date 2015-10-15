@@ -16,5 +16,5 @@ public class UserCanCreateAnEvent {
         Event createdEvent = events.get(0);
         Assert.assertEquals(theUser, createdEvent.host());
     }
-    
+
 }
