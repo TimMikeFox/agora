@@ -20,16 +20,12 @@ dependencies {
 
 apply plugin:'maven'
 
-install {
-    repositories.mavenInstaller {
-        pom.version = version
-        pom.artifactId = applicationName
-    }
-}
-
 uploadArchives {
     repositories {
         mavenDeployer {
+            pom {
+                artifactId = applicationName
+            }
             repository(url: "file:///tmp/repo")
         }
     }
