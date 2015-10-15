@@ -1,0 +1,13 @@
+sourceSets {
+    acceptanceTest {
+        java.srcDir 'src/acceptanceTest/java'
+        resources.srcDir 'src/acceptanceTest/resources'
+    }
+}
+
+// Add accpetance test source directories to IDEA .iml files
+if (project.plugins.hasPlugin('idea')) {
+    idea.module {
+        testSourceDirs += (sourceSets.acceptanceTest.java.srcDirs + sourceSets.acceptanceTest.resources.srcDirs)
+    }
+}

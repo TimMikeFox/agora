@@ -2,8 +2,10 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'findbugs'
 apply plugin: 'jacoco'
+apply plugin: 'idea'
 
 apply from: 'gradle/integration.gradle'
+apply from: 'gradle/acceptance.gradle'
 
 mainClassName = 'Driver'
 applicationName = 'agora'
