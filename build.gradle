@@ -1,11 +1,13 @@
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'findbugs'
+apply plugin: 'jacoco'
 
 apply from: 'gradle/integration.gradle'
 
 mainClassName = 'Driver'
 applicationName = 'agora'
+group = 'agora'
 version = '0.0.' + System.getProperty('PIPELINE_VERSION', '0');
 
 repositories {
@@ -14,4 +16,14 @@ repositories {
 
 dependencies {
     testCompile 'junit:junit:4.12'
+}
+
+apply plugin:'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file:///tmp/repo")
+        }
+    }
 }
