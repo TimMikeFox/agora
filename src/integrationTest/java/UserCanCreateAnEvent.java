@@ -10,6 +10,7 @@ public class UserCanCreateAnEvent {
          EventRepository repository = new InMemoryEventRepository();
          CreateEventAction newEvent = new CreateEventAction(repository);
          newEvent.host(theUser);
+         newEvent.name("TEST EVENT");
          newEvent.create();
          List<Event> events = repository.eventsHostedBy(theUser);
          Assert.assertEquals(1, events.size());
