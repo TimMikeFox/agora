@@ -1,3 +1,5 @@
+import groovy.io.FileType
+
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'findbugs'

@@ -1,13 +1,15 @@
-sourceSets {
-    acceptanceTest {
-        java.srcDir 'src/acceptanceTest/java'
-        resources.srcDir 'src/acceptanceTest/resources'
+task acceptanceTest {
+    dependsOn 'installDist','canRunCommandLine'
+}
+
+task canRunCommandLine << {
+    new ByteArrayOutputStream().withStream { os ->
+        exec {
+            commandLine 'build/install/agora/bin/agora'
+            standardOutput = os
+        }
+        def result = os.toString()
+        assert result == "Event 'THE EVENT' create for the host 'HOSTNAME'\n"
     }
 }
 
-// Add accpetance test source directories to IDEA .iml files
-if (project.plugins.hasPlugin('idea')) {
-    idea.module {
-        testSourceDirs += (sourceSets.acceptanceTest.java.srcDirs + sourceSets.acceptanceTest.resources.srcDirs)
-    }
-}
